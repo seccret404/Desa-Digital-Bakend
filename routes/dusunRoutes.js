@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const dusunController = require('../controllers/dusun.controllers');
 
-router.get('/', dusunController.findAll);
+router.get('/dusun', dusunController.findAll);
 
-router.post('/', dusunController.create);
+router.post('/dusun', dusunController.create);
 
-router.put('/:id', dusunController.update);
+router.put('/dusun/:id', dusunController.update);
 
-router.get('/:id', dusunController.findById);
+router.get('/dusun/:id', dusunController.findById);
 
-router.delete('/:id', dusunController.delete);
+router.delete('/dusun/:id', dusunController.delete);
 
 module.exports = router;
