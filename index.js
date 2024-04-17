@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 const dusunRoutes = require('./routes/dusunRoutes');
-const pendudukRoutes = require('./routes/pendudukRoute');
+// const pendudukRoutes = require('./routes/pendudukRoute');
 app.use('/api', dusunRoutes,pendudukRoutes);
 
 const PORT = process.env.PORT || 3000;
