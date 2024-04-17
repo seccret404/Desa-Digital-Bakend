@@ -31,7 +31,7 @@ class Penduduk{
      }
 
      static create(newPenduduk,result){
-          db.query("INSERT INTO penduduk SET ?", newPenduduk,(req,res) =>{
+          db.query("INSERT INTO penduduk SET ?", newPenduduk,(err,res) =>{
                if(err){
                     result(err, null);
                     return;
