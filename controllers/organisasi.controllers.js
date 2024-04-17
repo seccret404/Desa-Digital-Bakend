@@ -23,7 +23,7 @@ exports.findAll = (req, res) => {
  
      const newOrganisasi = new Organisasi(req.body.nama_lembaga,req.body.singkatan,req.body.alamat_organisasi,req.body.tahun_berdiri,req.body.ketua,req.body.wakil_ketua,req.body.sekretaris,req.body.bendahara,req.body.logo,req.body.jumlah_anggota);
  
-     Dusun.create(newOrganisasi, (err, data) => {
+     Organisasi.create(newOrganisasi, (err, data) => {
          if (err) {
              res.status(500).send({
                  message: err.message || "Some error occurred while creating the Dusun."
