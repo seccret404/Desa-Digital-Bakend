@@ -30,15 +30,14 @@ class Penduduk{
           });
      }
 
-     static create(newPenduduk,result){
-          db.query("INSERT INTO penduduk SET ?", newPenduduk,(err,res) =>{
-               if(err){
-                    result(err, null);
-                    return;
-               }
-               result(null, {id: res.insertId, ...newPenduduk});
-          });
-     }
+     static async create(newPenduduk) {
+          try {
+              const [result] = await db.promise().query("INSERT INTO penduduk SET ?", newPenduduk);
+              return { id: result.insertId, ...newPenduduk };
+          } catch (error) {
+              throw new Error('Failed to create new penduduk: ' + error.message);
+          }
+      }
 }
 
 module.exports = Penduduk;
