@@ -1,12 +1,12 @@
 const db = require('../config/database');
 
 class Penduduk{
-     constructor(nik,nama,agama,alamat,tangal_lahir,tempat_lahir,jenis_kelamin,pekerjaan,kewarganegaraan,status_hidup,status_perkawinan,pendidikan,no_kk,dusun,id_dusun,createdAt = new Date()){
+     constructor(nik,nama,agama,alamat,tanggal_lahir,tempat_lahir,jenis_kelamin,pekerjaan,kewarganegaraan,status_hidup,status_perkawinan,pendidikan,no_kk,dusun,id_dusun,createdAt = new Date()){
           this.nik = nik,
           this.nama = nama,
           this.agama = agama,
           this.alamat = alamat,
-          this.tangal_lahir = tangal_lahir,
+          this.tanggal_lahir = tanggal_lahir,
           this.tempat_lahir = tempat_lahir,
           this.jenis_kelamin = jenis_kelamin,
           this.pekerjaan = pekerjaan,
