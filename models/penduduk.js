@@ -21,7 +21,7 @@ class Penduduk{
      }
 
      static findAll(result){
-          db.query("SELECT * FROM penduduk",(req,res) =>{
+          db.query("SELECT * FROM penduduk", (err ,res) =>{
                if(err){
                     result(err,null);
                     return;
