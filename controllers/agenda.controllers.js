@@ -20,7 +20,7 @@ exports.findAll = (req, res) => {
          return;
      }
  
-     const newAgenda = new Agenda(req.body.nama_kegiatan, req.body.tanggal_kegiatan,req.body.lokasi,req.body.tujuan,req.body.deskripsi,req.body.status_laporan);
+     const newAgenda = new Agenda(req.body.nama_kegiatan, req.body.tanggal_kegiatan,req.body.lokasi,req.body.tujuan,req.body.deskripsi,req.body.status_laporan,req.body.gambar_kegiatan);
  
      Dusun.create(newAgenda, (err, data) => {
          if (err) {
