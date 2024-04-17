@@ -14,10 +14,14 @@ const dusunRoutes = require('./routes/dusunRoutes');
 const pendudukRoutes = require('./routes/pendudukRoute');
 const agendaRutes = require('./routes/agenda')
 const pemerintahRoutes = require('./routes/pemerintah');
+const organisasiRoutes = require('./routes/organisasi');
+
+
 app.use('/api', dusunRoutes);
 app.use('/api', pendudukRoutes);
 app.use('/api', agendaRutes);
 app.use('/api', pemerintahRoutes);
+app.use('/api', organisasiRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
