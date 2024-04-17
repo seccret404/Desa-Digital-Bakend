@@ -12,3 +12,16 @@ const pool = mysql.createPool({
 });
 
 module.exports = pool;
+
+
+// const mysql = require('mysql2');
+
+// const connection = mysql.createPool({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'desa_digital'
+// });
+
+// module.exports = connection;
+
