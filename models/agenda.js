@@ -31,3 +31,5 @@ class Agenda{
           });
      }
 }
+
+module.exports = Agenda;
