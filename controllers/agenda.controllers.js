@@ -13,29 +13,25 @@ exports.findAll = (req, res) => {
  };
 
  exports.create = (req, res) => {
-     if (!req.body) {
-         res.status(400).send({
-             message: "Content can not be empty!"
-         });
-         return;
-     }
+    // Periksa apakah semua field yang diperlukan ada
+    const { nama_kegiatan, tanggal_kegiatan, lokasi, tujuan, deskripsi, status_laporan, gambar_kegiatan } = req.body;
+
+    if (!nama_kegiatan || !tanggal_kegiatan || !lokasi || !tujuan || !deskripsi || !status_laporan || !gambar_kegiatan) {
+        res.status(400).send({
+            message: "Semua field harus diisi!"
+        });
+        return;
+    }
  
-     const newAgenda = new Agenda(
-        req.body.nama_kegiatan, 
-        req.body.tanggal_kegiatan,
-        req.body.lokasi,
-        req.body.tujuan,
-        req.body.deskripsi,
-        req.body.status_laporan,
-        req.body.gambar_kegiatan
-      );
-     Agenda.create(newAgenda, (err, data) => {
-         if (err) {
-             res.status(500).send({
-                 message: err.message || "Some error occurred while creating the Dusun."
-             });
-         } else {
-             res.send(data);
-         }
-     });
- };
+    const newAgenda = new Agenda(nama_kegiatan, tanggal_kegiatan, lokasi, tujuan, deskripsi, status_laporan, gambar_kegiatan);
+ 
+    Agenda.create(newAgenda, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occurred while creating the Dusun."
+            });
+        } else {
+            res.send(data);
+        }
+    });
+};
