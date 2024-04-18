@@ -8,7 +8,7 @@ class Agenda{
           this.tujuan =tujuan,
           this.deskripsi =deskripsi,
           this.status_laporan =status_laporan,
-          this.createdAt =createdAt,
+          this.createdAt =createdAt
      }
 
      static findAll(result) {
