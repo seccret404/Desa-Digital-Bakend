@@ -1,7 +1,7 @@
 const db = require('../config/database');
 
 class Agenda{
-     constructor(nama_kegiatan,tanggal_kegiatan,lokasi,tujuan,deskripsi,status_laporan,gambar_kegiatan,createdAt = new Date() ){
+     constructor(nama_kegiatan,tanggal_kegiatan,lokasi,tujuan,deskripsi,status_laporan,createdAt = new Date() ){
           this.nama_kegiatan = nama_kegiatan,
           this.tanggal_kegiatan = tanggal_kegiatan,
           this.lokasi =lokasi,
@@ -9,7 +9,6 @@ class Agenda{
           this.deskripsi =deskripsi,
           this.status_laporan =status_laporan,
           this.createdAt =createdAt,
-          this.gambar_kegiatan =gambar_kegiatan
      }
 
      static findAll(result) {
