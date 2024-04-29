@@ -1,48 +1,34 @@
-const Penduduk = require('../models/penduduk');
+const Penduduk = require("../models/penduduk");
 
-exports.findAll = (req,res) =>{
-     Penduduk.findAll((err, data) =>{
-          if(err){
-               res.status(500).send({
-                    message: err.message || "cant load data"
-               });
-          }else{
-               res.send(data);
-          }
-     })
-}
+exports.findAll = async (req, res) => {
+    try {
+        const penduduk = await Penduduk.findAll();
+        res.send(penduduk);
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Terjadi kesalahan saat mengambil data penduduk."
+        });
+    }
+};
 
-exports.create = (req,res) =>{
-     if(!req.body){
-          res.status(400).send({
-               message: "Content can't empty!"
-          });
-          return;
-     }
-     const newPenduduk = new Penduduk(
-          req.body.nik,
-          req.body.nama,
-          req.body.agama,
-          req.body.alamat,
-          req.body.tanggal_lahir,
-          req.body.tempat_lahir,
-          req.body.jenis_kelamin,
-          req.body.pekerjaan,
-          req.body.kewarganegaraan, 
-          req.body.pendidikan,
-          req.body.status_hidup,
-          req.body.status_perkawinan,
-          req.body.dusun,
-          req.body.no_kk,
-          req.body.id_dusun,
-    );
-    Penduduk.create(newPenduduk,(err, data) =>{
-     if(err){
-          res.status(500).send({
-               message: err.message || "err when add data"
-          });
-     }else{
-          res.send(data);
-     }
-    });
-}
+exports.create = async (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+        return;
+    }
+
+    const { nik, nama, agama, alamat, tanggal_lahir, tempat_lahir, jenis_kelamin, pekerjaan, kewarganegaraan, status_hidup, status_perkawinan, pendidikan_terakhir, no_kk, dusun, id_dusun } = req.body;
+
+    const newPenduduk = new Penduduk(nik, nama, agama, alamat, tanggal_lahir, tempat_lahir, jenis_kelamin, pekerjaan, kewarganegaraan, status_hidup, status_perkawinan, pendidikan_terakhir, no_kk, dusun, id_dusun);
+
+    try {
+        const penduduk = await Penduduk.create(newPenduduk);
+        res.send(penduduk);
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Some error occurred while creating the Penduduk."
+        });
+    }
+};
