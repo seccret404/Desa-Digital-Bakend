@@ -39,6 +39,33 @@ class Penduduk {
             throw new Error('Failed to create new penduduk: ' + error.message);
         }
     }
+    static async findById(id) {
+        try {
+            const query = "SELECT * FROM penduduks WHERE id = ?";
+            const [rows] = await db.promise().query(query, [id]);
+            if (rows.length === 0) {
+                throw new Error('Penduduk not found');
+            }
+            return rows[0];
+        } catch (error) {
+            throw new Error('Failed to retrieve penduduk: ' + error.message);
+        }
+    }
+    static async update(id, updatedData) {
+        try {
+            const query = "UPDATE penduduks SET ? WHERE id = ?";
+            const [result] = await db.promise().query(query, [updatedData, id]);
+            
+            if (result.affectedRows === 0) {
+                throw new Error('Penduduk not found or no changes were made');
+            }
+            
+            return { id: id, ...updatedData };
+        } catch (error) {
+            throw new Error('Failed to update penduduk: ' + error.message);
+        }
+    }
+    
 }
 
 module.exports = Penduduk;

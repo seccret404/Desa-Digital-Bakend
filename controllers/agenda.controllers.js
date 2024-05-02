@@ -14,16 +14,11 @@ exports.findAll = (req, res) => {
 
  exports.create = (req, res) => {
     // Periksa apakah semua field yang diperlukan ada
-    const { nama_kegiatan, tanggal_kegiatan, lokasi, tujuan, deskripsi, status_laporan } = req.body;
+    const { nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan, status_laporan } = req.body;
 
-    if (!nama_kegiatan || !tanggal_kegiatan || !lokasi || !tujuan || !deskripsi || !status_laporan ) {
-        res.status(400).send({
-            message: "Semua field harus diisi!"
-        });
-        return;
-    }
+     
  
-    const newAgenda = new Agenda(nama_kegiatan, tanggal_kegiatan, lokasi, tujuan, deskripsi, status_laporan);
+    const newAgenda = new Agenda(nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan, status_laporan);
  
     Agenda.create(newAgenda, (err, data) => {
         if (err) {

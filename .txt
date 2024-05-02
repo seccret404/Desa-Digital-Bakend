@@ -1,0 +1,76 @@
+// const express = require('express');
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
+// const fileUpload = require('express-fileupload');
+// const app = express();
+
+// // Middleware
+// app.use(cors());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(fileUpload());
+
+// // Routes
+// const dusunRoutes = require('./routes/dusunRoutes');
+// const pendudukRoutes = require('./routes/pendudukRoute');
+// const agendaRoutes = require('./routes/agenda');
+// const pemerintahRoutes = require('./routes/pemerintah');
+// const organisasiRoutes = require('./routes/organisasi');
+// const beritaRoutes = require('./routes/berita');
+
+// app.use('/api', dusunRoutes);
+// app.use('/api', pendudukRoutes);
+// app.use('/api', agendaRoutes);
+// app.use('/api', pemerintahRoutes);
+// app.use('/api', organisasiRoutes);
+// app.use('/api', beritaRoutes);
+
+// // Global error handler
+// app.use((err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).send('Something broke!');
+// });
+
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}.`);
+// });
+
+
+// const express = require('express');
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
+// const fileUpload = require('express-fileupload');
+// const app = express();
+
+// // Middleware
+// app.use(cors());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(fileUpload());
+
+// // Routes
+// const dusunRoutes = require('./routes/dusunRoutes');
+// const pendudukRoutes = require('./routes/pendudukRoute');
+// const agendaRoutes = require('./routes/agenda');
+// const pemerintahRoutes = require('./routes/pemerintah');
+// const organisasiRoutes = require('./routes/organisasi');
+// const beritaRoutes = require('./routes/berita');
+
+// app.use('/api', dusunRoutes);
+// app.use('/api', pendudukRoutes);
+// app.use('/api', agendaRoutes);
+// app.use('/api', pemerintahRoutes);
+// app.use('/api', organisasiRoutes);
+// app.use('/api', beritaRoutes);
+
+// // Global error handler
+// app.use((err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).send('Something broke!');
+// });
+
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}.`);
+// });
