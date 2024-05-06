@@ -12,7 +12,6 @@ exports.findAllBerita = (req, res) => {
     });
 };
 exports.createBerita = (req, res) => {
-    // Logika untuk membuat berita
     console.log("Data yang diterima:", req.body);
     console.log("Data yang dikirim:", req.files);
 
@@ -41,7 +40,7 @@ exports.createBerita = (req, res) => {
     });
 };
 exports.findBeritaById = (req, res) => {
-    Berita.findById(req.params.id, (err, data) => { // Change req.params.beritaId to req.params.id
+    Berita.findById(req.params.id, (err, data) => { 
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
@@ -57,3 +56,40 @@ exports.findBeritaById = (req, res) => {
         }
     });
 };
+
+exports.editBerita = (req, res) => {
+    console.log("Data yang diterima untuk diedit:", req.body);
+    console.log("Data yang dikirim:", req.files);
+
+    if (!req.body.judul_berita || !req.body.isi_berita) {
+        res.status(400).send({
+            message: "Judul berita dan isi berita diperlukan."
+        });
+        return;
+    }
+    const { cover, file } = req.files || {};
+
+    const updatedBerita = new Berita(
+        req.body.judul_berita,
+        req.body.isi_berita,
+        req.files && req.files['cover'] ? req.files['cover'][0].filename : null,
+        req.files && req.files['file'] ? req.files['file'][0].filename : null
+    );
+
+    Berita.update(req.params.id, updatedBerita, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Berita dengan id ${req.params.id} tidak ditemukan.`
+                });
+            } else {
+                res.status(500).send({
+                    message: `Error updating Berita with id ${req.params.id}`
+                });
+            }
+        } else {
+            res.send(data);
+        }
+    });
+};
+
