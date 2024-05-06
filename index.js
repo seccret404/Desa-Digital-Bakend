@@ -21,6 +21,7 @@ const pendudukRoutes = require('./routes/pendudukRoute');
 const agendaRoutes = require('./routes/agenda');
 const pemerintahRoutes = require('./routes/pemerintah');
 const organisasiRoutes = require('./routes/organisasi');
+const bantuanRoutes = require('./routes/bantuan');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -73,6 +74,7 @@ app.use('/api', pendudukRoutes);
 app.use('/api', agendaRoutes);
 app.use('/api', pemerintahRoutes);
 app.use('/api', organisasiRoutes);
+app.use('/api', bantuanRoutes);
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
