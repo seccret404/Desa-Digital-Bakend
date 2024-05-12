@@ -39,6 +39,7 @@ exports.createBerita = (req, res) => {
         }
     });
 };
+
 exports.findBeritaById = (req, res) => {
     Berita.findById(req.params.id, (err, data) => { 
         if (err) {

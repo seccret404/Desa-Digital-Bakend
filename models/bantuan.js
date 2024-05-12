@@ -17,7 +17,6 @@ class Bantuan{
                result(null,res)
           });
      }
-
      static create(newBantuan, result){
           db.query("INSERT INTO bantuans SET ?", newBantuan,(err, res) =>{
                if(err){
