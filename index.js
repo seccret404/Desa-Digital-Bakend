@@ -3,6 +3,7 @@ const app = express();
 const multer = require('multer');
 const cors = require('cors');
 const path = require('path');
+const pemerintahController = require('./controllers/pemerintah.controllers')
 const beritaController = require('./controllers/berita.controllers');
 const prfoileController = require('./controllers/profile.controllers');
 const pengumumanController = require('./controllers/pengumuman.controllers')
@@ -20,7 +21,6 @@ app.use('/images/laporan/dokumentasi', express.static(path.join(__dirname, 'uplo
 const dusunRoutes = require('./routes/dusunRoutes');
 const pendudukRoutes = require('./routes/pendudukRoute');
 const agendaRoutes = require('./routes/agenda');
-const pemerintahRoutes = require('./routes/pemerintah');
 const organisasiRoutes = require('./routes/organisasi');
 const bantuanRoutes = require('./routes/bantuan');
 const penerimaBantuanRoutes = require('./routes/penerima');
@@ -40,6 +40,9 @@ const storage = multer.diskStorage({
         else if (file.fieldname === 'cover_pengumuman') {
             cb(null, 'upload/pengumuman/cover');
         }
+        else if (file.fieldname === 'profil') {
+            cb(null, 'upload/pemerintah');
+        }
         else if (file.fieldname === 'dokumentasi') {
             cb(null, 'upload/laporan/dokumentasi');
         } else {
@@ -51,7 +54,17 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage }).fields([{ name: 'cover', maxCount: 1 }, { name: 'file', maxCount: 1 }, { name: 'file_pengumuman', maxCount: 1 },{ name: 'gambar_desa', maxCount: 1 }, { name: 'cover_pengumuman', maxCount: 1 },{name: 'dokumentasi', maxCount:5}]);
+const upload = multer({ storage: storage }).fields([
+    { name: 'cover', maxCount: 1 }, { name: 'file', maxCount: 1 },
+    { name: 'profil', maxCount: 1 }, { name: 'file_pengumuman', maxCount: 1 },
+    { name: 'gambar_desa', maxCount: 1 }, { name: 'cover_pengumuman', maxCount: 1 },
+    {name: 'dokumentasi', maxCount:5}]);
+//pemerinthan
+app.get('/api/pemerintah', pemerintahController.findAllPemerintah);
+app.get('/api/pemerintah/:id', pemerintahController.findPemerintahById);
+app.put('/api/pemerintah/:id',upload, pemerintahController.editPemerintah);
+app.post('/api/pemerintah',upload, pemerintahController.createPemerintah);
+//end;pemerinthan
 
 //profile
 app.get('/api/profile',prfoileController.createProfile);
@@ -82,7 +95,6 @@ app.get('/api/agenda/laporan/:id', laporanAgendaController.findaLaporanById);
 app.use('/api', dusunRoutes);
 app.use('/api', pendudukRoutes);
 app.use('/api', agendaRoutes);
-app.use('/api', pemerintahRoutes);
 app.use('/api', organisasiRoutes);
 app.use('/api', bantuanRoutes);
 app.use('/api', penerimaBantuanRoutes);
