@@ -12,8 +12,7 @@ exports.findAllPemerintah = (req, res)=>{
     });
 }
 
-
-exports.createPemerintah = (req, res)=>{
+exports.createPemerintah = (req, res) => {
     console.log("Data yang dikirimkan : ", req.body);
     console.log("Data yang dikirimkan: ", req.files);
     if (!req.files || !req.files['profil'] || !req.files['profil'][0]) {
@@ -21,27 +20,31 @@ exports.createPemerintah = (req, res)=>{
              message: "profil desa tidak ditemukan"
          });
      }
+  
+    const profilFilename = req.files['profil'][0].filename;
+  
     const newPemerintah = new Pemerintah(
          req.body.nama,
          req.body.nik,
          req.body.jabatan,  
-         req.files['profil'][0].filename,
+         profilFilename,
          req.body.tahun_mulai,
          req.body.tahun_selesai
-       
     );
-
-    Pemerintah.create(newPemerintah,(err,data)=>{
-         if(err){
+  
+    Pemerintah.create(newPemerintah, (err, data) => {
+         if (err) {
               res.status(500).send({
                    message: err.message || "Error add data"
               });
-
-         }else{
+  
+         } else {
               res.send(data);
          }
-    })
-}
+    });
+  }
+  
+
 
 exports.findPemerintahById = (req, res) => {
     Pemerintah.findById(req.params.id, (err, data) => { 

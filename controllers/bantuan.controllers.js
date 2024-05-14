@@ -17,7 +17,6 @@ exports.create = (req, res) =>{
      const newBantuan = new Bantuan(
           req.body.jenis_bantuan,
           req.body.nama_bantuan,
-          req.body.bentuk_terima
      );
      console.log("Data yang diterima:", req.body);
     

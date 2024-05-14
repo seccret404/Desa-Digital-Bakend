@@ -1,9 +1,8 @@
 const db = require('../config/database')
 class Bantuan{
-     constructor(jenis_bantuan,nama_bantuan,bentuk_terima,createdAt = new Date(), updatedAt = new Date){
+     constructor(jenis_bantuan,nama_bantuan,createdAt = new Date(), updatedAt = new Date){
           this.jenis_bantuan = jenis_bantuan;
           this.nama_bantuan = nama_bantuan;
-          this.bentuk_terima = bentuk_terima;
           this.createdAt = createdAt,
           this.updatedAt = updatedAt
      }

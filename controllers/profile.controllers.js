@@ -88,7 +88,7 @@ exports.editProfil = (req, res) => {
           req.body.kabupaten,
           req.body.provinsi,
           req.body.profil_singkat,
-          req.files && req.files['gambar_desa'] ? req.files['gambar_desa'][0].filename : null,
+          gambar_desa[0].filename,
           req.body.batas_barat,
           req.body.batas_timur,
           req.body.batas_utara,

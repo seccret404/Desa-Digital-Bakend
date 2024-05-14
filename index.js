@@ -3,6 +3,7 @@ const app = express();
 const multer = require('multer');
 const cors = require('cors');
 const path = require('path');
+const organisasiController = require('./controllers/organisasi.controllers')
 const pemerintahController = require('./controllers/pemerintah.controllers')
 const beritaController = require('./controllers/berita.controllers');
 const prfoileController = require('./controllers/profile.controllers');
@@ -13,6 +14,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/images/cover', express.static(path.join(__dirname, 'upload/cover')));
+app.use('/images/pemerintah', express.static(path.join(__dirname, 'upload/pemerintah')));
+app.use('/images/profile', express.static(path.join(__dirname, 'upload/profile')));
 app.use('/images/file', express.static(path.join(__dirname, 'upload/file')));
 app.use('/images/pengumuman/file', express.static(path.join(__dirname, 'upload/pengumuman/file')));
 app.use('/images/pengumuman/cover', express.static(path.join(__dirname, 'upload/pengumuman/cover')));
@@ -24,6 +27,7 @@ const agendaRoutes = require('./routes/agenda');
 const organisasiRoutes = require('./routes/organisasi');
 const bantuanRoutes = require('./routes/bantuan');
 const penerimaBantuanRoutes = require('./routes/penerima');
+const tugasRoutes = require('./routes/tugas');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -39,6 +43,9 @@ const storage = multer.diskStorage({
         }
         else if (file.fieldname === 'cover_pengumuman') {
             cb(null, 'upload/pengumuman/cover');
+        }
+        else if (file.fieldname === 'logo_organisasi') {
+            cb(null, 'upload/organisasi');
         }
         else if (file.fieldname === 'profil') {
             cb(null, 'upload/pemerintah');
@@ -58,7 +65,15 @@ const upload = multer({ storage: storage }).fields([
     { name: 'cover', maxCount: 1 }, { name: 'file', maxCount: 1 },
     { name: 'profil', maxCount: 1 }, { name: 'file_pengumuman', maxCount: 1 },
     { name: 'gambar_desa', maxCount: 1 }, { name: 'cover_pengumuman', maxCount: 1 },
-    {name: 'dokumentasi', maxCount:5}]);
+    {name: 'dokumentasi', maxCount:5},{ name: 'logo_organisasi', maxCount: 1 }]);
+
+//organisasi
+app.get('/api/organisasi', organisasiController.findAll );
+app.get('/api/organisasi/:id', organisasiController.findById );
+app.post('/api/organisasi', upload, organisasiController.create );
+//end-organisasi
+
+
 //pemerinthan
 app.get('/api/pemerintah', pemerintahController.findAllPemerintah);
 app.get('/api/pemerintah/:id', pemerintahController.findPemerintahById);
@@ -67,7 +82,7 @@ app.post('/api/pemerintah',upload, pemerintahController.createPemerintah);
 //end;pemerinthan
 
 //profile
-app.get('/api/profile',prfoileController.createProfile);
+app.get('/api/profile',prfoileController.findAllProfile);
 app.post('/api/profile', upload, prfoileController.createProfile);
 app.get('/api/profile/:id', prfoileController.findProfilById);
 app.put('/api/profile/:id', upload, prfoileController.editProfil);
@@ -75,7 +90,7 @@ app.put('/api/profile/:id', upload, prfoileController.editProfil);
 
 app.post('/api/create', upload, beritaController.createBerita);
 app.get('/api/berita', beritaController.findAllBerita);
-app.get('/api/berita/:id', beritaController.findBeritaById);
+app.get('/api/berita/:id',   beritaController.findBeritaById);
 app.put('/api/berita/:id', upload, beritaController.editBerita);
 
 //pengumumana
@@ -98,6 +113,7 @@ app.use('/api', agendaRoutes);
 app.use('/api', organisasiRoutes);
 app.use('/api', bantuanRoutes);
 app.use('/api', penerimaBantuanRoutes);
+app.use('/api', tugasRoutes);
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });

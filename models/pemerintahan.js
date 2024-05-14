@@ -1,17 +1,16 @@
 const db = require('../config/database');
 
 class Pemerintah{
-     constructor(nama,nik,jabatan,pemerintah,tahun_mulai,tahun_selesai,createdAt = new Date(),updatedAt = new Date()){
+     constructor(nama,nik,jabatan,profil,tahun_mulai = new Date(),tahun_selesai= new Date(),createdAt = new Date(),updatedAt = new Date()){
           this.nama =nama;
           this.nik = nik;
           this.jabatan = jabatan;
-          this.pemerintah = pemerintah;
+          this.profil = profil;
           this.tahun_mulai = tahun_mulai;
           this.tahun_selesai = tahun_selesai;
           this.createdAt=createdAt;
           this.updatedAt = updatedAt
      }
-
      static findAll(result){
           db.query("SELECT * FROM pemerintahans", (err, res)=>{
                if(err){
@@ -50,7 +49,7 @@ class Pemerintah{
       static update(id, pemerintah, result) {
           db.query(
               "UPDATE pemerintahans SET nama = ?, nik = ?, jabatan = ?, profil = ?, tahun_mulai = ?, tahun_selesai = ? WHERE id = ?",
-              [pemerintah.nama, pemerintah.nik, pemerintah.jabatan, pemerintah.pemerintah, pemerintah.tahun_mulai, pemerintah.tahun_selesai, id],
+              [pemerintah.nama, pemerintah.nik, pemerintah.jabatan, pemerintah.tahun_mulai, pemerintah.tahun_selesai, id],
               (err, res) => {
                   if (err) {
                       result(err, null);
