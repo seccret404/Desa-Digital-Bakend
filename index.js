@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/images/cover', express.static(path.join(__dirname, 'upload/cover')));
+app.use('/images/organisasi', express.static(path.join(__dirname, 'upload/organisasi')));
 app.use('/images/pemerintah', express.static(path.join(__dirname, 'upload/pemerintah')));
 app.use('/images/profile', express.static(path.join(__dirname, 'upload/profile')));
 app.use('/images/file', express.static(path.join(__dirname, 'upload/file')));
@@ -71,6 +72,7 @@ const upload = multer({ storage: storage }).fields([
 app.get('/api/organisasi', organisasiController.findAll );
 app.get('/api/organisasi/:id', organisasiController.findById );
 app.post('/api/organisasi', upload, organisasiController.create );
+app.put('/api/organisasi/:id', upload, organisasiController.editOrganisasi );
 //end-organisasi
 
 
