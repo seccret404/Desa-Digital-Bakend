@@ -90,7 +90,7 @@ exports.update = async (req, res) => {
             id_dusun
         };
 
-        // Lakukan update dengan memanggil metode update dari model Penduduk
+        
         const updatedPenduduk = await Penduduk.update(id, updatedData);
 
         res.send(updatedPenduduk);

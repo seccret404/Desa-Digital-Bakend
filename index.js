@@ -29,6 +29,7 @@ const organisasiRoutes = require('./routes/organisasi');
 const bantuanRoutes = require('./routes/bantuan');
 const penerimaBantuanRoutes = require('./routes/penerima');
 const tugasRoutes = require('./routes/tugas');
+const anggaranRoutes = require('./routes/apbdes');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -121,7 +122,10 @@ app.use('/api', organisasiRoutes);
 app.use('/api', bantuanRoutes);
 app.use('/api', penerimaBantuanRoutes);
 app.use('/api', tugasRoutes);
+app.use('/api', anggaranRoutes);
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
+
