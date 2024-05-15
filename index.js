@@ -67,7 +67,7 @@ const upload = multer({ storage: storage }).fields([
     { name: 'profil', maxCount: 1 }, { name: 'file_pengumuman', maxCount: 1 },
     { name: 'gambar_desa', maxCount: 1 }, { name: 'cover_pengumuman', maxCount: 1 },
     {name: 'dokumentasi', maxCount:5},{ name: 'logo_organisasi', maxCount: 1 }]);
-    
+
     app.get('/', (req, res) => {
         res.send('API is working');
     });
@@ -121,6 +121,7 @@ app.use('/api', organisasiRoutes);
 app.use('/api', bantuanRoutes);
 app.use('/api', penerimaBantuanRoutes);
 app.use('/api', tugasRoutes);
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
