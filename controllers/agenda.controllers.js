@@ -13,9 +13,9 @@ exports.findAll = (req, res) => {
  };
 
  exports.create = (req, res) => {
-    const { nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan, status_laporan } = req.body;
+    const { nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan} = req.body;
  
-    const newAgenda = new Agenda(nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan, status_laporan);
+    const newAgenda = new Agenda(nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan);
  
     Agenda.create(newAgenda, (err, data) => {
         if (err) {
@@ -50,9 +50,10 @@ exports.findById = (req, res) => {
 
 exports.update = (req, res) => {
     const id = req.params.id;
-    const { nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan, status_laporan } = req.body;
+    console.log("Data yang dikirimkan : ", req.body);
+    const { nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan } = req.body;
 
-    const agenda = new Agenda(nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan, status_laporan);
+    const agenda = new Agenda(nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan);
 
     Agenda.update(id, agenda, (err, data) => {
         if (err) {

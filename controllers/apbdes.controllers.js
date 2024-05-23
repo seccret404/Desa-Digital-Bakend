@@ -12,32 +12,34 @@ exports.findAll = async (req, res) => {
  };
  
  exports.create = async (req, res) => {
-     try {
-         if (!req.body) {
-             return res.status(400).send({
-                 message: "Konten tidak boleh kosong!"
-             });
-         }
+    try {
+        if (!req.body) {
+            return res.status(400).send({
+                message: "Data tidak boleh kosong!"
+            });
+        }
 
-         const tahun_anggaran = req.body.tahun_anggaran ? req.body.tahun_anggaran.substring(0, 4) : null;
- 
-         if (!tahun_anggaran || isNaN(tahun_anggaran)) {
-             throw new Error('Format tahun anggaran tidak valid');
-         }
- 
-         const newAnggaran = new Anggaran({
-             ...req.body,
-             tahun_anggaran: tahun_anggaran
-         });
- 
-         const createdAnggaran = await Anggaran.create(newAnggaran);
-         res.send(createdAnggaran);
-     } catch (error) {
-         res.status(500).send({
-             message: error.message || "Terjadi kesalahan saat membuat anggaran."
-         });
-     }
- };
+        const { tahun_anggaran } = req.body;
+
+        if (!tahun_anggaran || isNaN(tahun_anggaran) || tahun_anggaran.length !== 4) {
+            throw new Error('Format tahun anggaran tidak valid');
+        }
+
+        const newAnggaran = new Anggaran({
+            ...req.body,
+            tahun_anggaran: tahun_anggaran
+        });
+
+        const createdAnggaran = await Anggaran.create(newAnggaran);
+        res.send(createdAnggaran);
+    } catch (error) {
+        console.error('Error:', error.message);
+        res.status(500).send({
+            message: "Terjadi kesalahan saat membuat anggaran: " + error.message
+        });
+    }
+};
+
 
  exports.findById = async (req, res) => {
      const id = req.params.id;

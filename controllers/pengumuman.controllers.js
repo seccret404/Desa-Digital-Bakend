@@ -40,8 +40,6 @@ exports.findAllPengumuman = (req, res) => {
          }
      });
  };
-
-
  exports.findPengumumanById = (req, res) => {
      Pengumuman.findById(req.params.id, (err, data) => { 
          if (err) {

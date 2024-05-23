@@ -1,13 +1,12 @@
 const db = require('../config/database');
 
 class Agenda {
-     constructor(nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan, status_laporan, updatedAt = new Date(), createdAt = new Date()) {
+     constructor(nama_kegiatan, tanggal_kegiatan, lokasi, tujuan_kegiatan, deskripsi_kegiatan, updatedAt = new Date(), createdAt = new Date()) {
          this.nama_kegiatan = nama_kegiatan;
          this.tanggal_kegiatan = tanggal_kegiatan;
          this.lokasi = lokasi;
          this.tujuan_kegiatan = tujuan_kegiatan;
          this.deskripsi_kegiatan = deskripsi_kegiatan;
-         this.status_laporan = status_laporan;
          this.createdAt = createdAt;
          this.updatedAt = updatedAt;
      }
@@ -50,8 +49,8 @@ class Agenda {
  
      static update(id, agenda, result) {
          db.query(
-             "UPDATE agendas SET nama_kegiatan = ?, tanggal_kegiatan = ?, lokasi = ?, tujuan_kegiatan = ?, deskripsi_kegiatan = ?, status_laporan = ? WHERE id = ?",
-             [agenda.nama_kegiatan, agenda.tanggal_kegiatan, agenda.lokasi, agenda.tujuan_kegiatan, agenda.deskripsi_kegiatan, agenda.status_laporan, id],
+             "UPDATE agendas SET nama_kegiatan = ?, tanggal_kegiatan = ?, lokasi = ?, tujuan_kegiatan = ?, deskripsi_kegiatan = ? WHERE id = ?",
+             [agenda.nama_kegiatan, agenda.tanggal_kegiatan, agenda.lokasi, agenda.tujuan_kegiatan, agenda.deskripsi_kegiatan, id],
              (err, res) => {
                  if (err) {
                      result(err, null);
