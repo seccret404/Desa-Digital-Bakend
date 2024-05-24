@@ -129,7 +129,7 @@ app.put('/api/pengumuman/:id', upload, pengumumanController.editPengumuman);
 //laporan
 app.post('/api/agenda/laporan', upload, laporanAgendaController.createLaporan);
 app.get('/api/agenda/laporan', laporanAgendaController.findAllLaporan);
-app.get('/api/agenda/laporan/:id', laporanAgendaController.findaLaporanById);
+app.get('/api/agenda/laporan/:id_agenda', laporanAgendaController.findaLaporanById);
 
 //end-laporan
 app.use('/api', authRoutes);
