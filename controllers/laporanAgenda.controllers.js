@@ -39,15 +39,15 @@ exports.createLaporan = (req, res) => {
  };
  
  exports.findaLaporanById = (req, res) => {
-     LaporanAgenda.findById(req.params.id_agenda, (err, data) => { 
+     LaporanAgenda.findById(req.params.id, (err, data) => { 
          if (err) {
              if (err.kind === "not_found") {
                  res.status(404).send({
-                     message: `Laporan dengan id ${req.params.id_agenda} tidak ditemukan.`
+                     message: `Laporan dengan id ${req.params.id} tidak ditemukan.`
                  });
              } else {
                  res.status(500).send({
-                     message: `Error retrieving Laporan with id ${req.params.id_agenda}`
+                     message: `Error retrieving Laporan with id ${req.params.id}`
                  });
              }
          } else {

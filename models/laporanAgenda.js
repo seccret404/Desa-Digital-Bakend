@@ -39,8 +39,8 @@ class LaporanAgenda {
           })
      }
      
-     static findById(id_agenda, result) {
-          db.query("SELECT * FROM laporan_agendas WHERE id = ?", id_agenda, (err, res) => {
+     static findById(id, result) {
+          db.query("SELECT * FROM laporan_agendas WHERE id = ?", id, (err, res) => {
               if (err) {
                   result(err, null);
                   return;
