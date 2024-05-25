@@ -25,6 +25,24 @@ class Bantuan{
                result(null, { id: res.insertId, ...newBantuan });
           })
      }
+     static remove(id, result) {
+          db.query("DELETE FROM bantuans WHERE id = ?", id, (err, res) => {
+              if (err) {
+                  console.log("error: ", err);
+                  result(null, err);
+                  return;
+              }
+  
+              if (res.affectedRows == 0) {
+                  // Tidak ada dusun dengan ID tersebut ditemukan
+                  result({ kind: "not_found" }, null);
+                  return;
+              }
+  
+              console.log("bantuan dusun with id: ", id);
+              result(null, res);
+          });
+      }
 }
 
 module.exports = Bantuan;
