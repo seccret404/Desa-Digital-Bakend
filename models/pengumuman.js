@@ -61,6 +61,24 @@ class Pengumuman {
                }
           );
      }
+     static remove(id, result) {
+          db.query("DELETE FROM pengumumans WHERE id = ?", id, (err, res) => {
+              if (err) {
+                  console.log("error: ", err);
+                  result(null, err);
+                  return;
+              }
+  
+              if (res.affectedRows == 0) {
+                  // Tidak ada dusun dengan ID tersebut ditemukan
+                  result({ kind: "not_found" }, null);
+                  return;
+              }
+  
+              console.log("pengumumans dusun with id: ", id);
+              result(null, res);
+          });
+      }
 
 }
 

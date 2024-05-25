@@ -94,3 +94,19 @@ exports.editBerita = (req, res) => {
     });
 };
 
+
+exports.delete = (req, res) => {
+    Berita.remove(req.params.id, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found berita with id ${req.params.id}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Could not delete berita with id " + req.params.id
+                });
+            }
+        } else res.send({ message: `berita was deleted successfully!` });
+    });
+};

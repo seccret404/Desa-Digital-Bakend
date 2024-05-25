@@ -118,12 +118,16 @@ app.post('/api/create', upload, beritaController.createBerita);
 app.get('/api/berita', beritaController.findAllBerita);
 app.get('/api/berita/:id',   beritaController.findBeritaById);
 app.put('/api/berita/:id', upload, beritaController.editBerita);
+app.delete('api/berita/:id', beritaController.delete);
+
 
 //pengumumanan
 app.post('/api/create/pengumuman', upload, pengumumanController.createPengumuman);
 app.get('/api/pengumuman', pengumumanController.findAllPengumuman);
 app.get('/api/pengumuman/:id', pengumumanController.findPengumumanById);
 app.put('/api/pengumuman/:id', upload, pengumumanController.editPengumuman);
+app.delete('api/pengumuman/:id', pengumumanController.delete);
+
 //end-pengumuman
 
 //laporan
