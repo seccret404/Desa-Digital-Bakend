@@ -118,7 +118,7 @@ app.post('/api/create', upload, beritaController.createBerita);
 app.get('/api/berita', beritaController.findAllBerita);
 app.get('/api/berita/:id',   beritaController.findBeritaById);
 app.put('/api/berita/:id', upload, beritaController.editBerita);
-app.delete('api/berita/:id', beritaController.delete);
+app.delete('/api/berita/:id', beritaController.deleteBerita);
 
 
 //pengumumanan

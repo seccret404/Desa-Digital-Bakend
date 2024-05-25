@@ -95,18 +95,20 @@ exports.editBerita = (req, res) => {
 };
 
 
-exports.delete = (req, res) => {
-    Berita.remove(req.params.id, (err, data) => {
+exports.deleteBerita = (req, res) => {
+    Berita.delete(req.params.id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found berita with id ${req.params.id}.`
+                    message: `Berita dengan id ${req.params.id} tidak ditemukan.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Could not delete berita with id " + req.params.id
+                    message: `Terjadi kesalahan saat menghapus Berita dengan id ${req.params.id}`
                 });
             }
-        } else res.send({ message: `berita was deleted successfully!` });
+        } else {
+            res.send({ message: `Berita dengan id ${req.params.id} berhasil dihapus.` });
+        }
     });
 };

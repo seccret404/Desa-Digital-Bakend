@@ -66,25 +66,25 @@ class Berita {
                }
           );
      }
-
-     static remove(id, result) {
+     static delete(id, result) {
           db.query("DELETE FROM berita WHERE id = ?", id, (err, res) => {
               if (err) {
-                  console.log("error: ", err);
-                  result(null, err);
+                  result(err, null);
                   return;
               }
-  
+      
               if (res.affectedRows == 0) {
-                  // Tidak ada dusun dengan ID tersebut ditemukan
                   result({ kind: "not_found" }, null);
                   return;
               }
-  
-              console.log("berita dusun with id: ", id);
+      
+              console.log("Berita dengan id", id, "telah dihapus.");
               result(null, res);
           });
       }
+      
+
+      
 }
 
 module.exports = Berita;
