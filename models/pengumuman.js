@@ -79,6 +79,22 @@ class Pengumuman {
               result(null, res);
           });
       }
+      static delete(id, result) {
+          db.query("DELETE FROM pengumumans WHERE id = ?", id, (err, res) => {
+              if (err) {
+                  result(err, null);
+                  return;
+              }
+      
+              if (res.affectedRows == 0) {
+                  result({ kind: "not_found" }, null);
+                  return;
+              }
+      
+              console.log("pengumuman dengan id", id, "telah dihapus.");
+              result(null, res);
+          });
+      }
 
 }
 

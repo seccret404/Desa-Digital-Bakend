@@ -96,19 +96,21 @@ exports.editPengumuman = (req, res) => {
      });
  };
 
- exports.delete = (req, res) => {
-    Pengumuman.remove(req.params.id, (err, data) => {
+
+ exports.deleteBPengumuman = (req, res) => {
+    Pengumuman.delete(req.params.id, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found pengumuman with id ${req.params.id}.`
+                    message: `Pengumuman dengan id ${req.params.id} tidak ditemukan.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Could not delete pengumuman with id " + req.params.id
+                    message: `Terjadi kesalahan saat menghapus Pengumuman dengan id ${req.params.id}`
                 });
             }
-        } else res.send({ message: `pengumuman was deleted successfully!` });
+        } else {
+            res.send({ message: `Pengumuman dengan id ${req.params.id} berhasil dihapus.` });
+        }
     });
 };
- 

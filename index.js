@@ -112,7 +112,7 @@ app.get('/api/profile',prfoileController.findAllProfile);
 app.post('/api/profile', upload, prfoileController.createProfile);
 app.get('/api/profile/:id', prfoileController.findProfilById);
 app.put('/api/profile/:id', upload, prfoileController.editProfil);
-//ennd-profile
+//ennd-profil
 
 app.post('/api/create', upload, beritaController.createBerita);
 app.get('/api/berita', beritaController.findAllBerita);
@@ -126,7 +126,8 @@ app.post('/api/create/pengumuman', upload, pengumumanController.createPengumuman
 app.get('/api/pengumuman', pengumumanController.findAllPengumuman);
 app.get('/api/pengumuman/:id', pengumumanController.findPengumumanById);
 app.put('/api/pengumuman/:id', upload, pengumumanController.editPengumuman);
-app.delete('api/pengumuman/:id', pengumumanController.delete);
+app.delete('/api/pengumuman/:id', pengumumanController.deleteBPengumuman);
+
 
 //end-pengumuman
 
