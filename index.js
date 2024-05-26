@@ -74,6 +74,11 @@ const upload = multer({ storage: storage }).fields([
     app.get('/', (req, res) => {
         res.send('API is working');
     });
+    app.get('/api/berita_cover/:filename', (req, res) => {
+        const filename = req.params.filename;
+        const filePath = path.join(__dirname, 'upload/cover', filename);
+        res.sendFile(filePath);
+    });
 
     app.get('/api/pengumuman_file/:filename', (req, res) => {
         const filename = req.params.filename;
