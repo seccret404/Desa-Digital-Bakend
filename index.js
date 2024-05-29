@@ -145,6 +145,7 @@ app.delete('/api/pengumuman/:id', pengumumanController.deleteBPengumuman);
 app.post('/api/agenda/laporan', upload, laporanAgendaController.createLaporan);
 app.get('/api/agenda/laporan', laporanAgendaController.findAllLaporan);
 app.get('/api/agenda/laporan/:id', laporanAgendaController.findaLaporanById);
+app.put('/api/agenda/laporan/:id', upload,laporanAgendaController.updateLaporan);
 
 //end-laporan
 app.use('/api', authRoutes);

@@ -53,6 +53,27 @@ class LaporanAgenda {
               result({ kind: "not_found" }, null);
           });
       }
+
+      static updateById(id, updatedLaporan, result) {
+        const dokumentasiString = Array.isArray(updatedLaporan.dokumentasi) ? updatedLaporan.dokumentasi.join(", ") : updatedLaporan.dokumentasi;
+        const laporanData = { ...updatedLaporan, updatedAt: new Date(), dokumentasi: dokumentasiString };
+
+        db.query(
+            "UPDATE laporan_agendas SET ? WHERE id = ?",
+            [laporanData, id],
+            (err, res) => {
+                if (err) {
+                    result(err, null);
+                    return;
+                }
+                if (res.affectedRows == 0) {
+                    result({ kind: "not_found" }, null);
+                    return;
+                }
+                result(null, { id: id, ...updatedLaporan });
+            }
+        );
+    }
  }
  
  module.exports = LaporanAgenda;

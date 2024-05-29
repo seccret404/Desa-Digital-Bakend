@@ -55,3 +55,34 @@ exports.createLaporan = (req, res) => {
          }
      });
  };
+ exports.updateLaporan = (req, res) => {
+    console.log("Data yang diterima:", req.body);
+    console.log("File yang dikirim:", req.files);
+
+    if (!req.body.id_agenda || !req.body.jumlah_peserta || !req.body.lokasi_kegiatan || !req.body.donasi || !req.body.tgl_realisasi || !req.body.anggaran_desa || !req.body.status_kegiatan || !req.files['dokumentasi'] || !req.body.koordinator) {
+        res.status(400).send({
+            message: "Semua data laporan agenda diperlukan."
+        });
+        return;
+    }
+    
+    const { jumlah_peserta, lokasi_kegiatan, donasi, tgl_realisasi, anggaran_desa, status_kegiatan, koordinator } = req.body;
+    const dokumentasi = req.files['dokumentasi'].map(file => file.filename); // Menyimpan array nama file
+    const updatedLaporan = new LaporanAgenda(req.body.id_agenda, jumlah_peserta, lokasi_kegiatan, donasi, tgl_realisasi, anggaran_desa, status_kegiatan, dokumentasi, koordinator);
+
+    LaporanAgenda.updateById(req.params.id, updatedLaporan, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Laporan dengan id ${req.params.id} tidak ditemukan.`
+                });
+            } else {
+                res.status(500).send({
+                    message: `Error updating Laporan with id ${req.params.id}`
+                });
+            }
+        } else {
+            res.send(data);
+        }
+    });
+};
