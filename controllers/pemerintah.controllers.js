@@ -44,7 +44,42 @@ exports.createPemerintah = (req, res) => {
     });
   }
   
+  exports.updatePemerintah = (req, res) => {
+    console.log("Data yang diterima untuk diupdate:", req.body);
+    console.log("Data yang dikirim:", req.files);
 
+    if (!req.files || !req.files['profil'] || !req.files['profil'][0]) {
+        return res.status(400).send({
+            message: "Profil desa tidak ditemukan"
+        });
+    }
+
+    const { profil } = req.files || {};
+    const newPemerintah = new Pemerintah(
+        req.body.nama,
+        req.body.nik,
+        req.body.jabatan,
+        req.files && req.files['profil'] ? req.files['profil'][0].filename : null,
+        req.body.tahun_mulai,
+        req.body.tahun_selesai
+    );
+
+    Pemerintah.update(req.params.id, newPemerintah, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Pemerintah dengan id ${req.params.id} tidak ditemukan.`
+                });
+            } else {
+                res.status(500).send({
+                    message: `Error updating pemerintah with id ${req.params.id}`
+                });
+            }
+        } else {
+            res.send(data);
+        }
+    });
+};
 
 exports.findPemerintahById = (req, res) => {
     Pemerintah.findById(req.params.id, (err, data) => { 
