@@ -114,7 +114,7 @@ app.put('/api/organisasi/:id', upload, organisasiController.editOrganisasi );
 app.get('/api/pemerintah', pemerintahController.findAllPemerintah);
 app.get('/api/pemerintah/:id', pemerintahController.findPemerintahById);
 app.put('/api/pemerintah/:id',upload, pemerintahController.editPemerintah);
-app.post('/api/pemerintah',upload, pemerintahController.createPemerintah);
+app.post('/api/pemerintah',upload, pemerintahController.editPemerintah);
 //end;pemerinthan
 
 //profile
