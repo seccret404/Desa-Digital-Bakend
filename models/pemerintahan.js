@@ -49,7 +49,7 @@ class Pemerintah{
       static update(id, pemerintah, result) {
           db.query(
               "UPDATE pemerintahans SET nama = ?, nik = ?, jabatan = ?, profil = ?, tahun_mulai = ?, tahun_selesai = ? WHERE id = ?",
-              [pemerintah.nama, pemerintah.nik, pemerintah.jabatan, pemerintah.tahun_mulai, pemerintah.tahun_selesai, id],
+              [pemerintah.nama, pemerintah.nik, pemerintah.jabatan,pemerintah.profil, pemerintah.tahun_mulai, pemerintah.tahun_selesai, id],
               (err, res) => {
                   if (err) {
                       result(err, null);
