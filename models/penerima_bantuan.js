@@ -50,10 +50,11 @@ class Penerima{
 
      static update(id, penerima, result) {
           db.query(
-              "UPDATE penerima_bantuans SET id_penerima = ?, id_bantuan = ?, nama_penerima = ?, jenis_bantuan = ?, nama_bantuan = ?, tgl_terima = ?, jumlah_terima = ?, status_bantuan = ?, bentuk_terima = ? WHERE id = ?",
+              "UPDATE penerima_bantuans SET id_penduduk = ?, id_bantuan = ?, nama_penerima = ?, jenis_bantuan = ?, nama_bantuan = ?, tgl_terima = ?, jumlah_terima = ?, status_bantuan = ?, bentuk_terima = ? WHERE id = ?",
               [penerima.id_penduduk, penerima.id_bantuan, penerima.nama_penerima, penerima.jenis_bantuan, penerima.nama_bantuan, penerima.tgl_terima, penerima.jumlah_terima, penerima.status_bantuan, penerima.bentuk_terima, id],
               (err, res) => {
                   if (err) {
+                      console.error('Error updating record:', err);
                       result(err, null);
                       return;
                   }
@@ -65,6 +66,7 @@ class Penerima{
               }
           );
       }
+      
 }
 
 module.exports = Penerima;

@@ -52,7 +52,7 @@ exports.create = (req, res) => {
     }
 
     const penerima = new Penerima(
-         req.body.id_penduduk, 
+        req.body.id_penduduk, 
         req.body.id_bantuan,
         req.body.nama_penerima,
         req.body.jenis_bantuan,
@@ -65,15 +65,18 @@ exports.create = (req, res) => {
 
     Penerima.update(id, penerima, (err, data) => {
         if (err) {
-            if (err.kind === "not_found") {
+            console.error('Error:', err);
+            if (err.message === "Penerima Tidak Ditemukan") {
                 res.status(404).send({
-                    message: `Not found PB with id ${id}.`
+                    message: `Not found Penerima with id ${id}.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Error updating PB with id " + id
+                    message: `Error updating Penerima with id ${id}: ${err.message}`
                 });
             }
-        } else res.send(data);
+        } else {
+            res.send(data);
+        }
     });
 };
