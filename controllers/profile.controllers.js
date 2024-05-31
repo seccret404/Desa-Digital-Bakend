@@ -1,4 +1,4 @@
-const Profil = require('../models/profil');
+const Profil = require('../models/profildesa');
 
 exports.findAllProfile = (req, res) => {
     Profil.findAll((err, data) => {
