@@ -42,15 +42,16 @@ exports.createProfile = (req, res) => {
 };
 
 exports.findById = (req, res) => {
-    Profil.findById(req.params.id, (err, data) => { 
+    const id = req.params.id;
+    Profil.findById(id, (err, data) => { 
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Profil dengan id ${req.params.id} tidak ditemukan.`
+                    message: `Profil dengan id ${id} tidak ditemukan.`
                 });
             } else {
                 res.status(500).send({
-                    message: `Error retrieving Profil with id ${req.params.id}`
+                    message: `Error retrieving Profil with id ${id}`
                 });
             }
         } else {
@@ -58,6 +59,7 @@ exports.findById = (req, res) => {
         }
     });
 };
+
 
 exports.editProfil = (req, res) => {
     const id = req.params.id;

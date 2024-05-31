@@ -6,7 +6,7 @@ const path = require('path');
 const organisasiController = require('./controllers/organisasi.controllers')
 const pemerintahController = require('./controllers/pemerintah.controllers')
 const beritaController = require('./controllers/berita.controllers');
-const prfoileController = require('./controllers/profile.controllers');
+const profileController = require('./controllers/profile.controllers');
 const pengumumanController = require('./controllers/pengumuman.controllers')
 const laporanAgendaController = require('./controllers/laporanAgenda.controllers')
 app.use(express.urlencoded({ extended: true }));
@@ -118,10 +118,10 @@ app.post('/api/pemerintah',upload, pemerintahController.createPemerintah);
 //end;pemerintha
 
 //profile
-app.get('/api/profile',prfoileController.findAllProfile);
-app.post('/api/profile', upload, prfoileController.createProfile);
-app.get('/api/profile/:id', prfoileController.findById);
-app.put('/api/profile/:id', upload, prfoileController.editProfil);
+app.get('/api/profile',profileController.findAllProfile);
+app.post('/api/profile', upload, profileController.createProfile);
+app.get('/api/profile/:id', profileController.findById);
+app.put('/api/profile/:id', upload, profileController.editProfil);
 //ennd-profil
 
 app.post('/api/create', upload, beritaController.createBerita);
