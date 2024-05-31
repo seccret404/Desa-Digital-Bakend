@@ -52,7 +52,7 @@ exports.create = (req, res) => {
     }
 
     const penerima = new Penerima(
-        req.body.id_penerima,
+         req.body.id_penduduk, 
         req.body.id_bantuan,
         req.body.nama_penerima,
         req.body.jenis_bantuan,
