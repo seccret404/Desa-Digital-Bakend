@@ -41,16 +41,16 @@ exports.createProfile = (req, res) => {
     });
 };
 
-exports.findProfilById = (req, res) => {
-    Profil.findById(req.params.id, (err, data) => {
+exports.findById = (req, res) => {
+    Profil.findById(req.params.id, (err, data) => { 
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Profile dengan id ${req.params.id} tidak ditemukan.`
+                    message: `Profil dengan id ${req.params.id} tidak ditemukan.`
                 });
             } else {
                 res.status(500).send({
-                    message: `Error retrieving profile with id ${req.params.id}`
+                    message: `Error retrieving Profil with id ${req.params.id}`
                 });
             }
         } else {

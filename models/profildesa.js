@@ -42,7 +42,7 @@ class Profil {
     }
 
     static findById(id, result) {
-        db.query("SELECT * FROM profiles WHERE id = ?", [id], (err, res) => {
+        db.query("SELECT * FROM profiles WHERE id = ?", id, (err, res) => {
             if (err) {
                 result(err, null);
                 return;
@@ -51,6 +51,7 @@ class Profil {
                 result(null, res[0]);
                 return;
             }
+           
             result({ kind: "not_found" }, null);
         });
     }

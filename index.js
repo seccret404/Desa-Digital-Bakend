@@ -120,7 +120,7 @@ app.post('/api/pemerintah',upload, pemerintahController.createPemerintah);
 //profile
 app.get('/api/profile',prfoileController.findAllProfile);
 app.post('/api/profile', upload, prfoileController.createProfile);
-app.get('/api/profile/:id', prfoileController.findProfilById);
+app.get('/api/profile/:id', prfoileController.findById);
 app.put('/api/profile/:id', upload, prfoileController.editProfil);
 //ennd-profil
 
