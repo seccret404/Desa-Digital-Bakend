@@ -12,7 +12,6 @@ const addUser = async (username, password) => {
 
 const getUser = (username) => users.find(user => user.username === username);
 
-// Fungsi untuk menginisialisasi pengguna default
 const initializeUsers = async () => {
   await addUser('desaku', 'desaupdate');
 };
