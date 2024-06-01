@@ -9,7 +9,7 @@
 
 // module.exports = connection;
 const mysql = require('mysql2');
-const { initializeAdmin } = require('../models/auth');
+const { addUser } = require('../models/auth');
 
 const connection = mysql.createConnection({
   host: process.env.MYSQL_HOST,
@@ -35,4 +35,4 @@ connection.connect((err) => {
   connection.end();
 });
 
-module.exports = connection;
+module.exports = { connection }; // Mengubah ini menjadi objek yang berisi connection

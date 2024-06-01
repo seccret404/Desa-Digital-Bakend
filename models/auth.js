@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { connection } = require('../config/database'); // Mengimpor connection dari config/database.js
 
 const addUser = async (username, password) => {
   const hashedPassword = await bcrypt.hash(password, 10);
