@@ -31,7 +31,7 @@ const penerimaBantuanRoutes = require('./routes/penerima');
 const tugasRoutes = require('./routes/tugas');
 const anggaranRoutes = require('./routes/apbdes');
 const authRoutes = require('./routes/auth');
-const { initializeUsers } = require('./models/auth');
+const { initializeAdmin } = require('./models/auth');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
