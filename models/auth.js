@@ -22,12 +22,12 @@ const initializeUsers = async () => {
   });
 
   try {
-      const [rows, fields] = await connection.execute('SELECT COUNT(*) as count FROM users');
+      const [rows, fields] = await connection.execute('SELECT COUNT(*) as count FROM admin');
       if (rows[0].count === 0) {
           const adminUsername = 'admin';
           const adminPassword = 'admin123'; // Ganti dengan password yang diinginkan
           const hashedPassword = await bcrypt.hash(adminPassword, 10);
-          await connection.execute('INSERT INTO users (username, password) VALUES (?, ?)', [adminUsername, hashedPassword]);
+          await connection.execute('INSERT INTO admin (username, password) VALUES (?, ?)', [adminUsername, hashedPassword]);
           console.log('Admin user added to the database.');
       } else {
           console.log('Admin user already exists.');
