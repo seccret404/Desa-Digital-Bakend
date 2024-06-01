@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const connection = require('../config');
+const connection = require('../config/database');
 
 const addUser = async (username, password) => {
   const hashedPassword = await bcrypt.hash(password, 10);
