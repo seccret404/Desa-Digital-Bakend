@@ -5,20 +5,16 @@ const addUser = async (username, password) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = { username, password: hashedPassword };
 
-  connection.getConnection((err, connection) => {
-    if (err) {
-      console.error('Error getting database connection:', err);
-      return;
-    }
-
-    connection.query('INSERT INTO admin (username, password) VALUES (?, ?)', [user.username, user.password], (error, results, fields) => {
-      connection.release(); // Selalu ingat untuk melepaskan koneksi setelah penggunaan
+  connection.promise().then((pool) => {
+    pool.query('INSERT INTO admin (username, password) VALUES (?, ?)', [user.username, user.password], (error, results, fields) => {
       if (error) {
         console.error('Error adding user to database:', error);
         return;
       }
       console.log('User added to database');
     });
+  }).catch((error) => {
+    console.error('Error getting database connection:', error);
   });
 
   return user;
@@ -27,5 +23,4 @@ const addUser = async (username, password) => {
 const initializeAdmin = async () => {
   await addUser('admin', 'adminpassword'); // Tambahkan admin awal saat database terkoneksi
 };
-
 module.exports = { addUser, initializeAdmin };
