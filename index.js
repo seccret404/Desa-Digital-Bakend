@@ -31,7 +31,7 @@ const penerimaBantuanRoutes = require('./routes/penerima');
 const tugasRoutes = require('./routes/tugas');
 const anggaranRoutes = require('./routes/apbdes');
 const authRoutes = require('./routes/auth');
-const { initializeAdmin } = require('./models/auth');
+const { initializeUsers } = require('./models/auth');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -159,9 +159,8 @@ app.use('/api', tugasRoutes);
 app.use('/api', anggaranRoutes);
 
 
-const port = process.env.PORT || 3000;
-initializeAdmin().then(() => {
+initializeUsers().then(() => {
     app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
+        console.log(`Server is running on port ${port}`);
     });
-  });
+});

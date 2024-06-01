@@ -1,25 +1,44 @@
 const bcrypt = require('bcrypt');
-const { connection } = require('../config/database'); // Mengimpor connection dari config/database.js
+const mysql = require('mysql2/promise');
+
+const users = [];
 
 const addUser = async (username, password) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = { username, password: hashedPassword };
+  users.push(user);
+  return user;
+};
 
-  return new Promise((resolve, reject) => {
-    connection.query('INSERT INTO admin (username, password) VALUES (?, ?)', [user.username, user.password], (error, results, fields) => {
-      if (error) {
-        console.error('Error adding user to database:', error);
-        reject(error);
-        return;
-      }
-      console.log('User added to database');
-      resolve();
-    });
+const getUser = (username) => users.find(user => user.username === username);
+
+const initializeUsers = async () => {
+  const connection = await mysql.createConnection({
+      host: process.env.MYSQL_HOST,
+      port: process.env.MYSQL_PORT,
+      user: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE
   });
+
+  try {
+      const [rows, fields] = await connection.execute('SELECT COUNT(*) as count FROM users');
+      if (rows[0].count === 0) {
+          const adminUsername = 'admin';
+          const adminPassword = 'admin123'; // Ganti dengan password yang diinginkan
+          const hashedPassword = await bcrypt.hash(adminPassword, 10);
+          await connection.execute('INSERT INTO users (username, password) VALUES (?, ?)', [adminUsername, hashedPassword]);
+          console.log('Admin user added to the database.');
+      } else {
+          console.log('Admin user already exists.');
+      }
+  } catch (error) {
+      console.error('Error initializing users:', error);
+  } finally {
+      await connection.end();
+  }
 };
 
-const initializeAdmin = async () => {
-  await addUser('admin', 'adminpassword'); // Tambahkan admin awal saat database terkoneksi
-};
 
-module.exports = { addUser, initializeAdmin };
+
+module.exports = { addUser, getUser, initializeUsers };

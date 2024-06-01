@@ -8,31 +8,29 @@
 // });
 
 // module.exports = connection;
-const mysql = require('mysql2');
-const { addUser } = require('../models/auth');
 
-const connection = mysql.createConnection({
+const mysql = require('mysql2');
+
+const connection = mysql.createPool({
   host: process.env.MYSQL_HOST,
   port: process.env.MYSQL_PORT,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE
+  database: process.env.MYSQL_DATABASE,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
-connection.connect((err) => {
+connection.getConnection((err, connection) => {
   if (err) {
     console.error('Database connection failed:', err.stack);
     return;
   }
   console.log('Connected to database.');
-  
-  addUser('admin', 'adminpassword').then(() => {
-    console.log('Admin initialized');
-  }).catch(err => {
-    console.error('Error initializing admin:', err);
-  });
-
-  connection.end();
+  connection.release();
 });
 
-module.exports = { connection }; // Mengubah ini menjadi objek yang berisi connection
+module.exports = connection;
+
+
