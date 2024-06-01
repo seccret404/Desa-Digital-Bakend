@@ -4,7 +4,7 @@ const generateToken = require('../utils/generateToken');
 
 const login = async (req, res) => {
   const { username, password } = req.body;
-  const user = getUser(username);
+  const user = await getUser(username); // Menunggu hasil dari getUser
 
   if (!user) {
     return res.status(401).json({ message: 'Invalid username or password' });
@@ -16,12 +16,15 @@ const login = async (req, res) => {
   }
 
   const token = generateToken(user);
+  // Simpan token di sisi klien (misalnya, dalam cookie)
   res.cookie('token', token, { httpOnly: true });
   return res.status(200).json({ message: 'Login successful', token });
 };
 
 const logout = (req, res) => {
-  res.clearCookie('token');
+  // Hapus token dari sisi klien
+  // Contoh jika menggunakan cookie:
+  res.clearCookie('token'); // Hapus token dari cookie
   res.status(200).json({ message: 'Logout successful' });
 };
 

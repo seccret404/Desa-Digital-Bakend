@@ -10,7 +10,29 @@ const addUser = async (username, password) => {
   return user;
 };
 
-const getUser = (username) => users.find(user => user.username === username);
+const getUser = async (username) => {
+  const connection = await mysql.createConnection({
+      host: process.env.MYSQL_HOST,
+      port: process.env.MYSQL_PORT,
+      user: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE
+  });
+
+  try {
+      const [rows, fields] = await connection.execute('SELECT * FROM admin WHERE username = ?', [username]);
+      if (rows.length > 0) {
+          return rows[0]; 
+      } else {
+          return null; 
+      }
+  } catch (error) {
+      console.error('Error fetching user:', error);
+      return null;
+  } finally {
+      await connection.end();
+  }
+};
 
 const initializeUsers = async () => {
   const connection = await mysql.createConnection({
@@ -25,7 +47,7 @@ const initializeUsers = async () => {
       const [rows, fields] = await connection.execute('SELECT COUNT(*) as count FROM admin');
       if (rows[0].count === 0) {
           const adminUsername = 'admin';
-          const adminPassword = 'admin123'; // Ganti dengan password yang diinginkan
+          const adminPassword = 'admin123'; 
           const hashedPassword = await bcrypt.hash(adminPassword, 10);
           await connection.execute('INSERT INTO admin (username, password) VALUES (?, ?)', [adminUsername, hashedPassword]);
           console.log('Admin user added to the database.');
