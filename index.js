@@ -160,7 +160,7 @@ app.use('/api', anggaranRoutes);
 
 
 const port = process.env.PORT || 3000;
-initializeUsers().then(() => {
+initializeAdmin().then(() => {
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
