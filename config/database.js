@@ -8,8 +8,8 @@
 // });
 
 // module.exports = connection;
-
 const mysql = require('mysql2');
+const { initializeAdmin } = require('../models/auth');
 
 const connection = mysql.createPool({
   host: process.env.MYSQL_HOST,
@@ -28,9 +28,8 @@ connection.getConnection((err, connection) => {
     return;
   }
   console.log('Connected to database.');
+  initializeAdmin(); // Tambahkan ini untuk memanggil fungsi initializeAdmin setelah koneksi berhasil.
   connection.release();
 });
 
 module.exports = connection;
-
-
