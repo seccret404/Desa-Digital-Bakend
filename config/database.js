@@ -28,7 +28,11 @@ connection.getConnection((err, connection) => {
     return;
   }
   console.log('Connected to database.');
-  initializeAdmin(); // Tambahkan ini untuk memanggil fungsi initializeAdmin setelah koneksi berhasil.
+  initializeAdmin().then(() => {
+    console.log('Admin initialized');
+  }).catch(err => {
+    console.error('Error initializing admin:', err);
+  });
   connection.release();
 });
 
