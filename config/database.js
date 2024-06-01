@@ -22,18 +22,20 @@ const connection = mysql.createPool({
   queueLimit: 0
 });
 
-connection.getConnection((err, connection) => {
-  if (err) {
-    console.error('Database connection failed:', err.stack);
-    return;
-  }
-  console.log('Connected to database.');
-  initializeAdmin().then(() => {
-    console.log('Admin initialized');
-  }).catch(err => {
-    console.error('Error initializing admin:', err);
+connection.promise().then((pool) => {
+  pool.query('SELECT 1').then(() => {
+    console.log('Connected to database.');
+
+    addUser('admin', 'adminpassword').then(() => {
+      console.log('Admin initialized');
+    }).catch((err) => {
+      console.error('Error initializing admin:', err);
+    });
+  }).catch((err) => {
+    console.error('Database connection failed:', err);
   });
-  connection.release();
+}).catch((err) => {
+  console.error('Database connection failed:', err);
 });
 
 module.exports = connection;
