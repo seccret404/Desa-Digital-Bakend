@@ -36,7 +36,7 @@ const addUser = async (username, password) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   return new Promise((resolve, reject) => {
     connection.query(
-      `INSERT INTO admin (username, password) VALUES (?, ?)`,
+      `INSERT INTO admin (username, password) VALUES (desaku, desakuupdate)`,
       [username, hashedPassword],
       (err, results) => {
         if (err) {
