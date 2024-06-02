@@ -41,25 +41,18 @@ exports.createProfile = (req, res) => {
     });
 };
 
-exports.findById = (req, res) => {
+exports.findById = async (req, res) => {
     const id = req.params.id;
-    Profil.findById(id, (err, data) => { 
-        if (err) {
-            if (err.kind === "not_found") {
-                res.status(404).send({
-                    message: `Profil dengan id ${id} tidak ditemukan.`
-                });
-            } else {
-                res.status(500).send({
-                    message: `Error retrieving Profil with id ${id}`
-                });
-            }
-        } else {
-            res.send(data);
-        }
-    });
-};
 
+    try {
+        const prpfil = await Profil.findById(id);
+        res.send(prpfil);
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Terjadi kesalahan saat mengambil data profil."
+        });
+    }
+};
 
 exports.editProfil = (req, res) => {
     const id = req.params.id;

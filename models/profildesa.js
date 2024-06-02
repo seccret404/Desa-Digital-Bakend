@@ -41,20 +41,18 @@ class Profil {
         });
     }
 
-    static findById(id, result) {
-        db.query("SELECT * FROM profiles WHERE id = ?", [id], (err, res) => {
-            if (err) {
-                result(err, null);
-                return;
+    static async findById(id) {
+        try {
+            const query = "SELECT * FROM profiles WHERE id = ?";
+            const [rows] = await db.promise().query(query, [id]);
+            if (rows.length === 0) {
+                throw new Error('Profil not found');
             }
-            if (res.length) {
-                result(null, res[0]);
-                return;
-            }
-            result({ kind: "not_found" }, null);
-        });
+            return rows[0];
+        } catch (error) {
+            throw new Error('Failed to retrieve profil: ' + error.message);
+        }
     }
-    
 
     static update(id, profil, result) {
         db.query(
