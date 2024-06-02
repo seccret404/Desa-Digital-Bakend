@@ -85,7 +85,7 @@ const upload = multer({ storage: storage }).fields([
         const filePath = path.join(__dirname, 'upload/pengumuman_file', filename);
         res.sendFile(filePath);
     });
-    app.get('/api/profile/:filename', (req, res) => {
+    app.get('/api/gambardesa/:filename', (req, res) => {
         const filename = req.params.filename;
         const filePath = path.join(__dirname, 'upload/profile', filename);
         res.sendFile(filePath);
